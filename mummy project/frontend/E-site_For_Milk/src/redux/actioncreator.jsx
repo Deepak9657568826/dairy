@@ -2,7 +2,7 @@ import axios from "axios"
 import { LOGINFAILURE, LOGINLOADING, LOGINSUCCESS, LOGOUTFAILURE, LOGOUTLOADING, LOGOUTSUCCESS } from "./actionType"
 
 //  login function 
-const loginrurl = `http://localhost:8080/login`
+const loginrurl = `https://dairy-xesa.onrender.com/login`
 
 export function loginfunction(fromData, navigate , login) {
     return async (dispatch) => {
@@ -39,7 +39,7 @@ export function loginfunction(fromData, navigate , login) {
 
 // for logout 
 
-const logouturl = `http://localhost:8080/logout`
+const logouturl = `https://dairy-xesa.onrender.com/logout`
 const authorization = localStorage.getItem("token")
 
 export function logoutfunction(navigate) {

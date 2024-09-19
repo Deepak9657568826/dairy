@@ -5,7 +5,7 @@ import '../style/Order.css'; // Import CSS for styling
 function Order() {
   const [orderData, setOrderData] = useState([]);
 
-  const orderUrl = 'http://localhost:8080/order';
+  const orderUrl = 'https://dairy-xesa.onrender.com/order';
 
   const authorization = localStorage.getItem('token');
 
@@ -27,7 +27,7 @@ function Order() {
   }, []);
 
 
-  const deleteUrlUrl = 'http://localhost:8080/order';
+  const deleteUrlUrl = 'https://dairy-xesa.onrender.com/order';
 
   async function handleDelete(id) {
     const deleteorder = await axios.delete(`${deleteUrlUrl}/${id}`, {

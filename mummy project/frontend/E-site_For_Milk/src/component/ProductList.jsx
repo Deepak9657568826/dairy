@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 
 function ProductList() {
     const [productData, setProductData] = useState([]);
-    const productUrl = `http://localhost:8080/product`;
-    const orderUrl = `http://localhost:8080/order`;
+    const productUrl = `https://dairy-xesa.onrender.com/product`;
+    const orderUrl = `https://dairy-xesa.onrender.com/order`;
 
     const authorization = localStorage.getItem('token');
 

@@ -16,7 +16,7 @@ function Signpage() {
 
 
     const navigate = useNavigate()
-    const registerurl = `http://localhost:8080/register`
+    const registerurl = `https://dairy-xesa.onrender.com/register`
 
     async function handlesignup(e) {
         e.preventDefault();
