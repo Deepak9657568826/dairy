@@ -4,7 +4,6 @@ const { userRouter } = require("./routes/user.route");
 const { productRouter } = require("./routes/product.route");
 const cors = require("cors");
 const { orderRouter } = require("./routes/order.route");
-const jwt = require("jsonwebtoken");
 const { verifytoken } = require("./middleware/verifyToken");
 
 
@@ -22,6 +21,10 @@ app.use("/product", productRouter)
 app.use("/order", orderRouter)
 
 app.use("/verifyToken",verifytoken)
+
+app.get("/home", (req, res)=>{
+res.send("THis is home page")
+})
 
 const PORT = process.env.PORT || 8080 ; 
 
