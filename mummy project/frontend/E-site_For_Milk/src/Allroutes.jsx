@@ -4,6 +4,7 @@ import Homepage from './page/Homepage'
 import Signpage from './page/SignupPage'
 import Loginpage from './page/LoginPage'
 import Order from './page/Order'
+import ParticularOrder from './page/ParticularOrder'
 
 
 function Allroutes() {
@@ -14,6 +15,7 @@ function Allroutes() {
         <Route path="/signup" element={<Signpage/>} />
         <Route path="/login" element={<Loginpage/>} />
         <Route path="/order" element={<Order/>} />
+        <Route path="/particularOrder" element={<ParticularOrder/>} />
       </Routes>
     </div>
   )

@@ -41,21 +41,33 @@ function Order() {
   }
 
   //  handle order status
-  async function handleOrderStatus(e, id) {
-    // setOrderStatus(e)
-    console.log(id);
+  function handleOrderStatus(e, orderId) {
+    const newStatus = e;
     const payload = {
-      status: e
-    }
-    const updateOrderStatus = await axios.patch(`${orderUrl}/${id}`, payload, {
-      headers: {
-        authorization
-      }
-    })
-    getOrderData()
-    // console.log(updateOrderStatus.data);
-
+      status: newStatus,
+    };
+  
+    
+    axios.patch(`${orderUrl}/${orderId}`, payload, {
+        headers: {
+          authorization,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('Order status updated successfully:', response.data);
+          getOrderData();  // Fetch the updated order data after status change
+        }
+      })
+      .catch((error) => {
+        console.error('Error updating order status:', error);
+      });
   }
+  
+
+
+  
+  
   // console.log(orderStatus);
   {/* /  enum: ['pending', 'confirmed', 'delivered', 'canceled'], */ }
   function setBackgroundcolco(status) {
@@ -73,10 +85,15 @@ function Order() {
     }
   }
 
+  function handlerefresh(){
+    getOrderData();
+  }
+
 
   return (
     <div className="order-container">
       <h1 className="order-header">Your Orders</h1>
+      <button onClick={handlerefresh}>RefreshData</button>
       {orderData.length > 0 ? (
         <table className="order-table">
           <thead>
@@ -113,9 +130,7 @@ function Order() {
                     value={order.status}
                     onChange={(e) => { handleOrderStatus(e.target.value, order._id)}}
                     style={{ background: setBackgroundcolco(order.status), color:"white" , fontWeight:"bold" }}
-
                   >
-
                     <option value="Pending">Pending</option>
                     <option value="Confirmed">Confirmed</option>
                     <option value="Delivered">Delivered</option>

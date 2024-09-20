@@ -1,0 +1,78 @@
+/* ParticularOrder.css */
+.order-container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .order-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .order-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+  }
+  
+  .order-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-name {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .order-creator,
+  .order-price,
+  .order-status {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #666;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .order-card {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .order-image {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  
+  @media (max-width: 450px) {
+    .product-name {
+      font-size: 1.2rem;
+    }
+  
+    .order-creator,
+    .order-price,
+    .order-status {
+      font-size: 0.9rem;
+    }
+  }
+  

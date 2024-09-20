@@ -53,6 +53,7 @@ function Navbar() {
         {!state.isLoggedIn ? (<Link to="/signup">नोंदणी</Link>) : ("")}
         {!state.isLoggedIn ? (<Link to="/login">प्रवेश</Link>) : ("")}
 
+        {state.isLoggedIn ? (<Link to="/particularOrder" >तुमची ऑर्डर </Link>) : ("")}
         {state.isLoggedIn ? (<Link to="/login" onClick={handlellogout}>बाहेर पडा</Link>) : ("")}
 
       </div>

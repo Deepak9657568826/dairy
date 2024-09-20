@@ -7,29 +7,32 @@ const authmiddleware = async (req, res, next) => {
         if (!token) {
             res.status(200).json({ "Message": "Please login first" })
         }
-        else if(blacklist.includes(token)){
+        else if (blacklist.includes(token)) {
             res.status(200).json({ "Message": "Please login first" })
         }
         else {
             jwt.verify(token, process.env.secreate_key, function (err, decoded) {
-                if(err){
-                   res.status(200).json({err}) 
-                   
+                if (err) {
+                    res.status(200).json({ err })
+
                 }
-                else if(decoded){
+                else if (decoded) {
                     console.log(decoded.user);
                     req.role = decoded.user.role
-                    req.body.creatorname = decoded.user.name
-                    req.body.creatorid = decoded.user._id
-                    req.body.phoneNumber = decoded.user.phoneNumber
-                     
+                    req.idforuser =   decoded.user._id
+                    if (req.method === 'POST') {
+                        req.body.creatorname = decoded.user.name;
+                        req.body.creatorid = decoded.user._id;
+                        req.body.phoneNumber = decoded.user.phoneNumber;
+                    }
+
                     next()
                 }
             });
         }
 
     } catch (error) {
-        res.status(500).json({error}) 
+        res.status(500).json({ error })
     }
 }
 

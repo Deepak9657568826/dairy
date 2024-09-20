@@ -13,6 +13,7 @@ const placeorder = async(req, res)=>{
 }
 
 const getOrderList = async(req, res)=>{
+  
     try {
         const orderList = await orderModel.find({})
         res.status(200).json({Message:"OrderList", orderList});
@@ -32,17 +33,36 @@ const updateOrder = async(req, res)=>{
     }
 }
 
-const updateOrderwithPatch = async(req, res)=>{
-    const {id} = req.params
-    const payload = req.body
-    try {
-        const orderList = await orderModel.findByIdAndUpdate({_id:id}, payload)
-        res.status(200).json({Message:"Order update successfully"});
-    } catch (error) {
-        res.status(200).json({Message:error});
-    }
-}
+// const updateOrderwithPatch = async(req, res)=>{
+//     const {id} = req.params
+//     const payload = req.body
+//     try {
+//         const orderList = await orderModel.findByIdAndUpdate({_id:id}, payload)
+//         res.status(200).json({Message:"Order update successfully"});
+//     } catch (error) {
+//         res.status(200).json({Message:error});
+//     }
+// }
 
+const updateOrderwithPatch = async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+
+    try {
+        const order = await orderModel.findById(id);
+
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found' });
+        }
+
+        order.status = status;
+        await order.save();
+
+        res.status(200).json({ message: 'Order updated successfully', order });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating order', error });
+    }
+};
 
 const deleteOrder = async(req, res)=>{
     const {id} = req.params
@@ -54,10 +74,28 @@ const deleteOrder = async(req, res)=>{
     }
 }
 
+
+const prticularOrderList = async (req, res)=>{
+    const id = req.idforuser
+    console.log("id", id);
+    
+    try {
+        const orderList = await orderModel.find({creatorid:id})
+        res.status(200).json({Message:"OrderList", orderList});
+    } catch (error) {
+        res.status(200).json({Message:error});
+    }
+
+} 
+
+
+
+
 module.exports ={
     placeorder, 
     getOrderList , 
     updateOrder , 
     deleteOrder, 
-    updateOrderwithPatch
+    updateOrderwithPatch, 
+    prticularOrderList
 }
