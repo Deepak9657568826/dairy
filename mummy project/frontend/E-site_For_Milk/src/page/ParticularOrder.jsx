@@ -5,7 +5,7 @@ import '../style/ParticularOrder.css';  // Assuming you will write CSS here
 function ParticularOrder() {
   const [data, setData] = useState([]);
 
-  const particularuserOrder = `http://localhost:8080/order/particular`;
+  const particularuserOrder = `https://dairy-xesa.onrender.com/order/particular`;
   const authorization = localStorage.getItem('token');
 
   async function getOrderList() {
