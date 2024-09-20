@@ -41,27 +41,20 @@ function Order() {
   }
 
   //  handle order status
-  function handleOrderStatus(e, orderId) {
+const orderUrlpatch = `https://dairy-xesa.onrender.com/order/patch`
+  async function handleOrderStatus(e, orderId) {
     const newStatus = e;
     const payload = {
       status: newStatus,
     };
   
-    
-    axios.patch(`${orderUrl}/${orderId}`, payload, {
+    const response = await axios.patch(`${orderUrlpatch}/${orderId}`, payload, {
         headers: {
           authorization,
         },
       })
-      .then((response) => {
-        if (response.status === 200) {
-          console.log('Order status updated successfully:', response.data);
-          getOrderData();  // Fetch the updated order data after status change
-        }
-      })
-      .catch((error) => {
-        console.error('Error updating order status:', error);
-      });
+      console.log(response.data);
+      getOrderData();
   }
   
 
