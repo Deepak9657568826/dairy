@@ -8,7 +8,8 @@ const orderRouter = express.Router();
 
 orderRouter.post("/", authmiddleware,  accesmiddleware('admin', 'user'), placeorder)
 orderRouter.put("/:id",authmiddleware,  accesmiddleware('admin'), updateOrder)
-orderRouter.patch("/:id", accesmiddleware('admin'), updateOrderwithPatch)
+
+orderRouter.patch("/patch/:id", authmiddleware , updateOrderwithPatch)
 
 orderRouter.delete("/:id",authmiddleware,  accesmiddleware('admin'), deleteOrder)
 
