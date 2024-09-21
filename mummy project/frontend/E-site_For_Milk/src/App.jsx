@@ -19,7 +19,7 @@ function App() {
     if (token && user) {
       // Send request to backend to verify token
       axios
-        .post('http://localhost:8080/verifyToken', { token })
+        .post('https://dairy-xesa.onrender.com/verifyToken', { token })
         .then((response) => {
           if (response.data.isValid) {
             // If token is valid, dispatch LOGINSUCCESS to store user in Redux
