@@ -35,6 +35,17 @@ const updateProduct = async (req, res) => {
     }
 }
 
+const updateProductwithPatch = async (req, res) => {
+    const {id} = req.params
+    const payload = req.body
+    try {
+        const newProdut = await productModel.findByIdAndUpdate({_id:id}, payload)
+        res.status(200).json({ "Message": "Product update successfully" , newProdut })
+    } catch (error) {
+        res.status(200).json({"Message":error.message})
+    }
+}
+
 const deleteProduct = async (req, res) => {
     const {id} = req.params
     try {
@@ -49,6 +60,7 @@ module.exports = {
  addProduct ,
  getAllProduct,
  updateProduct, 
- deleteProduct
+ deleteProduct, 
+ updateProductwithPatch
 }
 
