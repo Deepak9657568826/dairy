@@ -1,0 +1,115 @@
+.footer {
+    background: linear-gradient(135deg, #ffffff, #f0f0f0);
+    padding: 40px 0;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: row; /* Change to row for horizontal alignment */
+    justify-content: space-between; /* Space out sections evenly */
+    align-items: flex-start; /* Align items at the start */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    margin: 20px;
+    color: #333;
+    flex: 1;
+    text-align: left; /* Align text to the left */
+    /* border: 2px solid red; */
+}
+
+.footer-section h2 {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #000000; /* A warm orange color */
+    font-size: 1.8em;
+    border-bottom: 2px solid #bc4521; /* Underline effect */
+    padding-bottom: 5px;
+}
+
+.footer-section p,
+.footer-section ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #666;
+}
+
+.footer-section ul {
+    padding: 0;
+}
+
+.footer-section a {
+    text-decoration: none;
+    color: #007BFF;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.footer-section a:hover {
+    color: #ff5722; /* Change color on hover */
+    padding-left: 5px; /* Slide effect */
+}
+
+.social-media {
+    margin-top: 8px;
+    display: flex;
+    gap: 10px;
+}
+
+.social-media a {
+    margin: 0 0px; /* Increased space between icons */
+    font-size: 28px; /* Increased size for better visibility */
+    color: #525eeb;
+    /* transition: color 0.3s, transform 0.3s; */
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    background-color: #e4e2e2;
+    height: 45px;
+    width: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.footer-section h3 {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333; /* Use a darker color for better visibility */
+    font-weight: bold;
+}
+
+.social-media a:hover {
+    color: #000000; /* Change color on hover */
+  
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #777;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .footer-container {
+        padding: 0 20px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-section {
+        margin: 0 20px;
+        flex: 1;
+        min-width: 200px; /* Ensure a minimum width for sections */
+    }
+}

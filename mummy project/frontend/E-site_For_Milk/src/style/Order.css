@@ -1,64 +1,169 @@
 .order-container {
-    padding: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.order-header {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.refresh-button {
+  display: block;
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.refresh-button:hover {
+  background-color: #0056b3;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden; /* Rounded corners for table */
+}
+
+.order-table th,
+.order-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-table th {
+  background-color: #4a90e2;
+  color: white;
+  font-weight: bold;
+}
+
+.order-table tr {
+  transition: background-color 0.3s;
+}
+
+.order-table tr:hover {
+  background-color: #f1f1f1; /* Light gray on row hover */
+}
+
+.order-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #4a90e2; /* Border around image */
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.status.pending {
+  background-color: #ff9800;
+  color: white;
+}
+
+.status.completed {
+  background-color: #4caf50;
+  color: white;
+}
+
+.status.canceled {
+  background-color: #f44336;
+  color: white;
+}
+
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #d9534f;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #c9302c; /* Darker red on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .order-header {
-    text-align: center;
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 20px;
+      font-size: 2rem;
   }
-  
-  .order-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: white;
+
+  .order-table th, .order-table td {
+      font-size: 0.9rem;
+      padding: 10px;
   }
-  
-  .order-table th,
-  .order-table td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .order-table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-  }
-  
+
   .order-image {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%;
+      width: 50px;
+      height: 50px;
   }
-  
-  .status {
-    padding: 5px 10px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: capitalize;
+
+  .refresh-button {
+      padding: 8px 16px;
+      font-size: 0.9rem;
   }
-  
-  .status.pending {
-    background-color: #ff9800;
-    color: white;
+
+  /* Stack table cells for smaller screens */
+  .order-table {
+      display: block;
+      overflow-x: auto; /* Enable horizontal scrolling */
   }
-  
-  .status.completed {
-    background-color: #4caf50;
-    color: white;
+
+  .order-table th, .order-table td {
+      display: block;
+      width: 100%;
+      box-sizing: border-box; /* Ensure padding is included in width */
   }
-  
-  .status.canceled {
-    background-color: #f44336;
-    color: white;
+
+  .order-table th {
+      background-color: #4a90e2; /* Keep header background for clarity */
   }
-  
+
+  .order-table tr {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px; /* Add space between rows */
+      border: 1px solid #ddd; /* Border for each order */
+      border-radius: 8px; /* Rounded corners for rows */
+      overflow: hidden; /* Ensure rounded corners are respected */
+  }
+
+  .order-table td {
+      text-align: left; /* Left-align text for better readability */
+      padding: 8px; /* Smaller padding for compactness */
+  }
+
+  .order-table td:first-child {
+      font-weight: bold; /* Emphasize the order number */
+  }
+
+  .order-table td:last-child {
+      text-align: center; /* Center-align action buttons */
+  }
+}

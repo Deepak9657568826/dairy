@@ -5,6 +5,8 @@ import Allroutes from './Allroutes';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { LOGINSUCCESS, LOGINFAILURE } from './redux/actionType';
+import Footer from './component/Footer';
+import NotificationBar from './page/NotificationBar';
 
 function App() {
   const state = useSelector((state) => state);
@@ -44,7 +46,12 @@ function App() {
   return (
     <div>
       <Navbar />
+      <NotificationBar/>
+      <div style={{paddingTop:"100px"}}>
+
       <Allroutes />
+      <Footer/>
+      </div>
     </div>
   );
 }

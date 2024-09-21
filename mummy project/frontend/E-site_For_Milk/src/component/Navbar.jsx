@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../style/Navbar.css'; // Importing the CSS file
+import '../style/Navbar.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { logoutfunction } from '../redux/actioncreator';
+import { useToast } from '@chakra-ui/react';
 
 function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false); 
-
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  // console.log(state.user);
+  const toast = useToast();
+
   let role;
   if (state.user) {
-    role = state.user.user.role
+    role = state.user.user.role;
   }
-  // console.log(role);
-
-
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); 
+    setMenuOpen(!menuOpen);
   };
 
-  function handlellogout() {
-    dispatch(logoutfunction(navigate))
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
+  function handleLogout() {
+    dispatch(logoutfunction(navigate, toast));
   }
 
   return (
@@ -36,26 +38,25 @@ function Navbar() {
         </Link>
       </div>
 
-      {/* Hamburger icon for mobile */}
       <div className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={toggleMenu}>
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
       </div>
 
-      {/* Navbar links */}
       <div className={`navbar-links ${menuOpen ? 'active' : ''}`}>
-
-
-        <Link to="/">मुख्यपृष्ठ</Link>
-        {role == "admin" ? (<Link to="/order">प्राप्त ऑर्डर</Link>) : ("")}
+        <Link to="/" onClick={closeMenu}>मुख्यपृष्ठ</Link>
         
-        {!state.isLoggedIn ? (<Link to="/signup">नोंदणी</Link>) : ("")}
-        {!state.isLoggedIn ? (<Link to="/login">प्रवेश</Link>) : ("")}
+        {role === "admin" && <Link to="/addproduct" onClick={closeMenu}>उत्पादन जोडा</Link>}
+        {role === "admin" && <Link to="/order" onClick={closeMenu}>प्राप्त ऑर्डर</Link>}
+        
+        {!state.isLoggedIn && <Link to="/signup" onClick={closeMenu}>नोंदणी</Link>}
+        {!state.isLoggedIn && <Link to="/login" onClick={closeMenu}>प्रवेश</Link>}
 
-        {state.isLoggedIn ? (<Link to="/particularOrder" >तुमची ऑर्डर </Link>) : ("")}
-        {state.isLoggedIn ? (<Link to="/login" onClick={handlellogout}>बाहेर पडा</Link>) : ("")}
+        {state.isLoggedIn && <Link to="/particularOrder" onClick={closeMenu}>तुमची ऑर्डर</Link>}
+        {state.isLoggedIn && <Link to="/profile" onClick={closeMenu}>युजर प्रोफाइल</Link>}
 
+        {state.isLoggedIn && <Link to="/login" onClick={() => { handleLogout(); closeMenu(); }}>बाहेर पडा</Link>}
       </div>
     </nav>
   );
