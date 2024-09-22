@@ -69,7 +69,7 @@
     /* transition: color 0.3s, transform 0.3s; */
     border: 1px solid rgb(0, 0, 0);
     border-radius: 50%;
-    background-color: #e4e2e2;
+    background-color: #000000;
     height: 45px;
     width: 45px;
     display: flex;
@@ -86,7 +86,8 @@
 }
 
 .social-media a:hover {
-    color: #000000; /* Change color on hover */
+    color: #373a9b; /* Change color on hover */
+    background-color: rgb(193, 193, 193);
   
 }
 
