@@ -71,7 +71,7 @@ function Order() {
         authorization,
       },
     })
-    console.log(response.data);
+    // console.log(response.data);
     getOrderData();
   }
 
@@ -97,13 +97,10 @@ function Order() {
   }
 
   function handlerefresh() {
-    console.log("sdgdsgd");
-
     setRefresh(true)
     getOrderData();
 
   }
-  // console.log(refresh);
 
 
 

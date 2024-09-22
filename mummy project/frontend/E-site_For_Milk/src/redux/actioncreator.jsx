@@ -79,7 +79,7 @@ const logouturl = `https://dairy-xesa.onrender.com/logout`
 const authorization = localStorage.getItem("token")
 
 export function logoutfunction(navigate , toast) {
-    console.log("Come in logout function");
+    // console.log("Come in logout function");
     
     return async (dispatch) => {
         dispatch({ type: LOGOUTLOADING })
@@ -89,10 +89,10 @@ export function logoutfunction(navigate , toast) {
                     authorization
                 }
             })
-            console.log(response.data);
+            // console.log(response.data);
 
             if (response.data.Message == `User logout successfull`) {
-                console.log("enter in if bock");
+                // console.log("enter in if bock");
                 
                 dispatch({ type: LOGOUTSUCCESS, payload: response.data })
                 localStorage.removeItem('token');

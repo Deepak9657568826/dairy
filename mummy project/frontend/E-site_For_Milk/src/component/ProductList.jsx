@@ -23,14 +23,24 @@ function ProductList() {
 
     const [isEditing, setIsEditing] = useState(false); // To show/hide update form
     const [selectedProduct, setSelectedProduct] = useState(null); // To store the product being updated
-    
+
+    const [runDelete, setRunDelete] = useState(false)
+
+    var [deleteProduct , setDeleteProduct] = useState()
+
 
     const orderUrl = `https://dairy-xesa.onrender.com/order`;
 
- 
+
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+  
+    const { isOpen:deleteisOpen, onOpen:deleteOnOpen, onClose:deleteOnClose } = useDisclosure()
+
+
+
     const cancelRef = useRef()
+    const cancelRef2 = useRef()
 
     const toast = useToast()
 
@@ -44,13 +54,13 @@ function ProductList() {
     let name;
     let phoneNumber;
     let role;
-    console.log(state.isLoggedIn);
+    // console.log(state.isLoggedIn);
     if (state.user) {
         name = state.user.user.name
         phoneNumber = state.user.user.phoneNumber
         role = state.user.user.role
     }
-    console.log(role);
+    // console.log(role);
 
 
 
@@ -63,7 +73,7 @@ function ProductList() {
             });
             setProductData(response.data.allproduct);
 
-            console.log(response.data.allproduct);
+            // console.log(response.data.allproduct);
 
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -77,8 +87,8 @@ function ProductList() {
 
 
     async function handlebuy(product) {
-        console.log(product);
-        
+        // console.log(product);
+
         if (!state.isLoggedIn) {
             // alert("Please log in first.");
             toast({
@@ -116,7 +126,7 @@ function ProductList() {
                             authorization
                         }
                     })
-                    console.log(updateQuantity.data.Message);
+                    // console.log(updateQuantity.data.Message);
                     if (updateQuantity.data.Message == "Product update successfully") {
                         getProductData();
                     }
@@ -136,49 +146,64 @@ function ProductList() {
         }
     }
 
+    function handleDeleteModel(id){
+        setDeleteProduct(id)
+        deleteOnOpen();
+    }
+// console.log(deleteProduct);
+
+
     async function handleDelete(id) {
 
         try {
-            const deleteProduct = await axios.delete(`${productUrl}/${id}`, {
-                headers: {
-                    authorization,
-                },
-            });
-            console.log(deleteProduct.data.Message);
-            if (deleteProduct.data.Message == "Product delete successfully") {
+                const deleteProduct = await axios.delete(`${productUrl}/${id}`, {
+                    headers: {
+                        authorization,
+                    },
+                });
+                // console.log(deleteProduct.data.Message);
+                if (deleteProduct.data.Message == "Product delete successfully") {
+                    getProductData();
+                    toast({
+                        title: `${deleteProduct.data.Message}`,
+                        description: `${deleteProduct.data.Message}`,
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top-right',
+                    })
+                    // setRunDelete(false)
+                    deleteOnClose();
+
+                }
+                else {
+                    toast({
+                        title: `${deleteProduct.data.Message}`,
+                        description: `${deleteProduct.data.Message}`,
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                        position: 'top-right',
+                    })
+                }
+            } catch (error) {
+                // console.log(error.message);
                 toast({
-                    title: `${deleteProduct.data.Message}`,
-                    description: `${deleteProduct.data.Message}`,
-                    status: 'success',
-                    duration: 5000,
-                    isClosable: true,
-                    position: 'top-right',
-                })
-                getProductData();
-            }
-            else{
-                toast({
-                    title: `${deleteProduct.data.Message}`,
-                    description: `${deleteProduct.data.Message}`,
+                    title: `${error.message}`,
+                    description: `${error.message}`,
                     status: 'error',
                     duration: 5000,
                     isClosable: true,
                     position: 'top-right',
                 })
             }
+      
 
-        } catch (error) {
-            console.log(error.message);
-            toast({
-                title: `${error.message}`,
-                description: `${error.message}`,
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-                position: 'top-right',
-            })
-        }
     }
+
+
+
+
 
     function handleUpdate(product) {
         setSelectedProduct(product);  // Set the selected product for update
@@ -187,19 +212,21 @@ function ProductList() {
 
     async function handleUpdateSubmit(e, id) {
         e.preventDefault();
-    
+
         const updatedProduct = {
             productname: e.target.productname.value,
             price: e.target.price.value,
             quantityAvailable: e.target.quantityAvailable.value
         };
-    
+
         try {
             const response = await axios.patch(`${productUrl}/${id}`, updatedProduct, {
                 headers: {
                     authorization
                 }
             });
+      
+            
             if (response.data.Message === "Product update successfully") {
                 getProductData();      // Refresh the product list
                 setIsEditing(false);   // Close the form
@@ -223,9 +250,10 @@ function ProductList() {
             });
         }
     }
-    
-    
 
+
+
+// console.log(runDelete);
 
 
     return (
@@ -247,10 +275,10 @@ function ProductList() {
                             {(product.quantityAvailable > 0) ? (
                                 <button onClick={() => { handlebuy(product) }} className="buy-now-btn">आता खरेदी करा</button>
                             ) : (
-                                <Button>Product Out of Stock</Button>
+                                <Button colorScheme='red'>Product Out of Stock</Button>
                             )}
                             {role == 'admin' && <Button colorScheme='blue' m={1} onClick={() => { handleUpdate(product) }}>Update</Button>}
-                            {role == 'admin' && <Button colorScheme='red' onClick={() => { handleDelete(product._id) }}>Delete</Button>}
+                            {role == 'admin' && <Button colorScheme='red' onClick={() => { handleDeleteModel(product._id) }}>Delete</Button>}
                         </div>
                     ))
                 ) : (
@@ -259,32 +287,32 @@ function ProductList() {
             </div>
 
             {isEditing && selectedProduct && (
-    <div className="update-form">
-        <h3>Update Product: {selectedProduct.productname}</h3>
-        <form onSubmit={(e) => handleUpdateSubmit(e, selectedProduct._id)}>
-            <input 
-                type="text"
-                defaultValue={selectedProduct.productname}
-                name="productname"
-                placeholder="Product Name"
-            />
-            <input 
-                type="string"
-                defaultValue={selectedProduct.price}
-                name="price"
-                placeholder="Price"
-            />
-            <input 
-                type="number"
-                defaultValue={selectedProduct.quantityAvailable}
-                name="quantityAvailable"
-                placeholder="Quantity Available"
-            />
-            <Button colorScheme='blue' type="submit">Submit Update</Button>
-            <Button colorScheme='red' onClick={() => setIsEditing(false)}>Cancel</Button>
-        </form>
-    </div>
-)}
+                <div className="update-form">
+                    <h3>Update Product: {selectedProduct.productname}</h3>
+                    <form onSubmit={(e) => handleUpdateSubmit(e, selectedProduct._id)}>
+                        <input
+                            type="text"
+                            defaultValue={selectedProduct.productname}
+                            name="productname"
+                            placeholder="Product Name"
+                        />
+                        <input
+                            type="string"
+                            defaultValue={selectedProduct.price}
+                            name="price"
+                            placeholder="Price"
+                        />
+                        <input
+                            type="number"
+                            defaultValue={selectedProduct.quantityAvailable}
+                            name="quantityAvailable"
+                            placeholder="Quantity Available"
+                        />
+                        <Button colorScheme='blue' type="submit">Submit Update</Button>
+                        <Button colorScheme='red' onClick={() => setIsEditing(false)}>Cancel</Button>
+                    </form>
+                </div>
+            )}
 
 
             {/* chakra ui  */}
@@ -309,6 +337,38 @@ function ProductList() {
                     </AlertDialogContent>
                 </AlertDialogOverlay>
             </AlertDialog>
+
+
+
+
+            {/* chakra ui for delete product */}
+            <AlertDialog
+                isOpen={deleteisOpen}
+                leastDestructiveRef={cancelRef2}
+                onClose={deleteOnClose}
+            >
+                <AlertDialogOverlay>
+                    <AlertDialogContent>
+                        <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                            Delete Product
+                        </AlertDialogHeader>
+
+                        <AlertDialogBody>
+                            Are you sure delete product?
+                        </AlertDialogBody>
+
+                        <AlertDialogFooter>
+                            <Button ref={cancelRef2} onClick={deleteOnClose}>
+                                Cancel
+                            </Button>
+                            <Button  colorScheme='red' onClick={()=>{handleDelete(deleteProduct)}} ml={3}>
+                                Delete
+                            </Button>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialogOverlay>
+            </AlertDialog>
+
 
 
         </div>

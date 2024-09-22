@@ -44,11 +44,10 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className='app'>
       <Navbar />
       <NotificationBar/>
-      <div style={{paddingTop:"100px"}}>
-
+      <div style={{paddingTop:"110px"}}>
       <Allroutes />
       <Footer/>
       </div>

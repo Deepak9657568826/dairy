@@ -1,12 +1,12 @@
 import React from 'react';
-import '../style/Homepage.css'; // Import the CSS file for styles
+import '../style/Homepage.css';
 import ProductList from '../component/ProductList';
 import { useSelector } from 'react-redux';
 
 function Homepage() {
   const state = useSelector((state) => state);
   
-  
+
   return (
     <div className="homepage-container">
      

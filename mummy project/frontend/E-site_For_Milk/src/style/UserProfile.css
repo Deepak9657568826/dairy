@@ -7,18 +7,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
     padding: 20px;
+    margin-top: 1rem 0px ;
 }
 
 .profile-card {
     background: linear-gradient(to right, rgb(255, 121, 121),rgb(255, 255, 255),  #a0f64b88); /* Forest Green to Sky Blue */
-
-
-
-
-
-
     border-radius: 15px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); 
     padding: 30px;

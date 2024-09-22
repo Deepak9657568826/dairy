@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutfunction } from '../redux/actioncreator';
 import { useToast } from '@chakra-ui/react';
+import websitelogoDairy from "../assets/websitelogoDairy.jpeg"
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -34,7 +35,7 @@ function Navbar() {
     <nav className="navbar">
       <div className="navbar-logo">
         <Link to="/">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGoCpSQNy6r7d8v_jfAihJ2qmSEgBCE1cEew&s" alt="Logo" />
+          <img src={websitelogoDairy} alt="Logo" />
         </Link>
       </div>
 

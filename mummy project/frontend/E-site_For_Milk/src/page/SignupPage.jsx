@@ -32,7 +32,7 @@ function Signpage() {
         }
         // console.log(fromData);
         const response = await axios.post(registerurl, fromData)
-        console.log(response.data.Message);
+        // console.log(response.data.Message);
         if (response.data.Message == `User with email id ${email} is already register`) {
             // alert(`${response.data.Message}`)
             toast({
