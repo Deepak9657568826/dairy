@@ -46,8 +46,8 @@ function App() {
   return (
     <div className='app'>
       <Navbar />
-      <NotificationBar/>
-      <div style={{paddingTop:"110px"}}>
+      <NotificationBar />
+      <div style={{paddingTop:"120px"}}>
       <Allroutes />
       <Footer/>
       </div>
