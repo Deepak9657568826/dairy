@@ -13,7 +13,6 @@ const addProduct = async (req, res) => {
 
 const getAllProduct = async (req, res) => {
     
-    const {id} = req.params
     try {
         const allproduct = await productModel.find({})
         res.status(200).json({ "Message": "List of all product", allproduct })
@@ -21,6 +20,18 @@ const getAllProduct = async (req, res) => {
         res.status(200).json({"Message":error.message})
     }
 }
+
+const getsingleProduct = async (req, res) => {
+    const {id} = req.params
+
+    try {
+        const Singleproduct = await productModel.findOne({_id:id})
+        res.status(200).json({ "Message": "Single product", Singleproduct })
+    } catch (error) {
+        res.status(200).json({"Message":error.message})
+    }
+}
+
 
 
 
@@ -61,6 +72,7 @@ module.exports = {
  getAllProduct,
  updateProduct, 
  deleteProduct, 
- updateProductwithPatch
+ updateProductwithPatch, 
+ getsingleProduct
 }
 

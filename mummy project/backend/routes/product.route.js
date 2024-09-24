@@ -1,6 +1,6 @@
 
 const express = require("express");
-const { deleteProduct, updateProduct, addProduct, getAllProduct, updateProductwithPatch } = require("../controller/product.controller");
+const { deleteProduct, updateProduct, addProduct, getAllProduct, updateProductwithPatch, getsingleProduct } = require("../controller/product.controller");
 const { accesmiddleware } = require("../middleware/accessmiddleware");
 const { authmiddleware } = require("../middleware/authmiddleware");
 
@@ -14,6 +14,8 @@ productRouter.patch("/:id",authmiddleware , updateProductwithPatch)
 productRouter.delete("/:id",authmiddleware,  accesmiddleware('admin'), deleteProduct)
 
 productRouter.get("/", getAllProduct)
+
+productRouter.get("/:id", getsingleProduct)
 
 
 module.exports = {
