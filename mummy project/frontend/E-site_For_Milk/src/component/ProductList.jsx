@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import '../style/ProductList.css';
 import { useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {
     Button,
     AlertDialog,
@@ -13,7 +13,10 @@ import {
     AlertDialogOverlay,
     AlertDialogCloseButton,
     useDisclosure,
-    useToast
+    useToast, Skeleton, SkeletonCircle, SkeletonText,
+    Stack,
+    Box
+
 } from '@chakra-ui/react';
 
 
@@ -26,7 +29,9 @@ function ProductList() {
 
     const [runDelete, setRunDelete] = useState(false)
 
-    var [deleteProduct , setDeleteProduct] = useState()
+    const [productPrice, setProductPrice] = useState("")
+
+    var [deleteProduct, setDeleteProduct] = useState()
 
 
     const orderUrl = `https://dairy-xesa.onrender.com/order`;
@@ -34,8 +39,8 @@ function ProductList() {
 
 
     const { isOpen, onOpen, onClose } = useDisclosure()
-  
-    const { isOpen:deleteisOpen, onOpen:deleteOnOpen, onClose:deleteOnClose } = useDisclosure()
+
+    const { isOpen: deleteisOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
 
 
 
@@ -73,7 +78,7 @@ function ProductList() {
             });
             setProductData(response.data.allproduct);
 
-            // console.log(response.data.allproduct);
+            console.log(response.data.allproduct);
 
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -83,121 +88,59 @@ function ProductList() {
     useEffect(() => {
         getProductData();
     }, []);
-    //   console.log(productData);
 
-
-    async function handlebuy(product) {
-        // console.log(product);
-
-        if (!state.isLoggedIn) {
-            // alert("Please log in first.");
-            toast({
-                title: 'Please, Login first',
-                description: "You have to login first for buy product",
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-                position: 'top-right',
-            })
-            navigate('/login');
-            return;
-        }
-        else {
-
-            const fromData = {
-                productImage: product.productImage,
-                productname: product.productname,
-                price: product.price
-            }
-            try {
-                const response = await axios.post(orderUrl, fromData, {
-                    headers: {
-                        authorization,
-                    },
-                });
-                // console.log(response.data.Message);
-                if (response.data.Message == `New order place successfuly`) {
-                    onOpen();
-                    const quantityPayload = {
-                        quantityAvailable: product.quantityAvailable - 250
-                    }
-                    const updateQuantity = await axios.patch(`${productUrl}/${product._id}`, quantityPayload, {
-                        headers: {
-                            authorization
-                        }
-                    })
-                    // console.log(updateQuantity.data.Message);
-                    if (updateQuantity.data.Message == "Product update successfully") {
-                        getProductData();
-                    }
-
-                }
-
-            } catch (error) {
-                console.error('Error fetching products:', error);
-                toast({
-                    title: 'Error',
-                    description: `${error.message}`,
-                    status: 'error',
-                    duration: 5000,
-                    isClosable: true,
-                })
-            }
-        }
-    }
-
-    function handleDeleteModel(id){
+    function handleDeleteModel(id) {
         setDeleteProduct(id)
         deleteOnOpen();
     }
-// console.log(deleteProduct);
+
 
 
     async function handleDelete(id) {
 
         try {
-                const deleteProduct = await axios.delete(`${productUrl}/${id}`, {
-                    headers: {
-                        authorization,
-                    },
-                });
-                // console.log(deleteProduct.data.Message);
-                if (deleteProduct.data.Message == "Product delete successfully") {
-                    getProductData();
-                    toast({
-                        title: `${deleteProduct.data.Message}`,
-                        description: `${deleteProduct.data.Message}`,
-                        status: 'success',
-                        duration: 5000,
-                        isClosable: true,
-                        position: 'top-right',
-                    })
-                    // setRunDelete(false)
-                    deleteOnClose();
+            const deleteProduct = await axios.delete(`${productUrl}/${id}`, {
+                headers: {
+                    authorization,
+                },
+            });
 
-                }
-                else {
-                    toast({
-                        title: `${deleteProduct.data.Message}`,
-                        description: `${deleteProduct.data.Message}`,
-                        status: 'error',
-                        duration: 5000,
-                        isClosable: true,
-                        position: 'top-right',
-                    })
-                }
-            } catch (error) {
-                // console.log(error.message);
+            if (deleteProduct.data.Message == "Product delete successfully") {
+                getProductData();
                 toast({
-                    title: `${error.message}`,
-                    description: `${error.message}`,
+                    title: `${deleteProduct.data.Message}`,
+                    description: `${deleteProduct.data.Message}`,
+                    status: 'success',
+                    duration: 5000,
+                    isClosable: true,
+                    position: 'top-right',
+                })
+
+                deleteOnClose();
+
+            }
+            else {
+                toast({
+                    title: `${deleteProduct.data.Message}`,
+                    description: `${deleteProduct.data.Message}`,
                     status: 'error',
                     duration: 5000,
                     isClosable: true,
                     position: 'top-right',
                 })
             }
-      
+        } catch (error) {
+
+            toast({
+                title: `${error.message}`,
+                description: `${error.message}`,
+                status: 'error',
+                duration: 5000,
+                isClosable: true,
+                position: 'top-right',
+            })
+        }
+
 
     }
 
@@ -206,8 +149,8 @@ function ProductList() {
 
 
     function handleUpdate(product) {
-        setSelectedProduct(product);  // Set the selected product for update
-        setIsEditing(true);           // Show the update form
+        setSelectedProduct(product);
+        setIsEditing(true);
     }
 
     async function handleUpdateSubmit(e, id) {
@@ -216,8 +159,12 @@ function ProductList() {
         const updatedProduct = {
             productname: e.target.productname.value,
             price: e.target.price.value,
+            quantity: e.target.quantity.value,
             quantityAvailable: e.target.quantityAvailable.value
+
         };
+        console.log(updatedProduct);
+
 
         try {
             const response = await axios.patch(`${productUrl}/${id}`, updatedProduct, {
@@ -225,8 +172,8 @@ function ProductList() {
                     authorization
                 }
             });
-      
-            
+
+
             if (response.data.Message === "Product update successfully") {
                 getProductData();      // Refresh the product list
                 setIsEditing(false);   // Close the form
@@ -253,7 +200,7 @@ function ProductList() {
 
 
 
-// console.log(runDelete);
+    console.log("price:", productPrice);
 
 
     return (
@@ -270,19 +217,44 @@ function ProductList() {
                                 className="product-image"
                             />
                             <h2 className="product-name">{product.productname}</h2>
+
                             <p className="product-price">Rs.{product.price}</p>
+
                             {role == 'admin' && <p className="product-quantity">Available Quantity: {product.quantityAvailable} {product.productname == "दही" ? (`gram`) : (`ml`)}</p>}
+
                             {(product.quantityAvailable > 0) ? (
-                                <button onClick={() => { handlebuy(product) }} className="buy-now-btn">आता खरेदी करा</button>
+                                <Link to={`/product/${product._id}`}> <Button w={52} colorScheme='blue'> खरेदी करा</Button> </Link>
                             ) : (
                                 <Button colorScheme='red'>Product Out of Stock</Button>
                             )}
+
+
                             {role == 'admin' && <Button colorScheme='blue' m={1} onClick={() => { handleUpdate(product) }}>Update</Button>}
+
                             {role == 'admin' && <Button colorScheme='red' onClick={() => { handleDeleteModel(product._id) }}>Delete</Button>}
+
                         </div>
                     ))
                 ) : (
-                    <p>Loading products...</p>
+                    //     <Box w={200} padding='6' boxShadow='lg' bg='white'>
+                    //     <SkeletonCircle size='10' />
+                    //     <SkeletonText w={100} mt='4' noOfLines={2} spacing='4' skeletonHeight='2' />
+                    //   </Box>
+                    <Stack>
+                        <Skeleton  height='20px'>
+                            <div>contents wrapped</div>
+                            <div>won't be visible</div>
+                        </Skeleton>
+                        <Skeleton height='20px'>
+                            <div>contents wrapped</div>
+                            <div>won't be visible</div>
+                        </Skeleton>
+                        <Skeleton height='20px'>
+                            <div>contents wrapped</div>
+                            <div>won't be visible</div>
+                        </Skeleton>
+                    </Stack>
+
                 )}
             </div>
 
@@ -297,10 +269,16 @@ function ProductList() {
                             placeholder="Product Name"
                         />
                         <input
-                            type="string"
+                            type="number"
                             defaultValue={selectedProduct.price}
                             name="price"
                             placeholder="Price"
+                        />
+                        <input
+                            type="number"
+                            defaultValue={selectedProduct.quantity}
+                            name="quantity"
+                            placeholder="quantity"
                         />
                         <input
                             type="number"
@@ -315,7 +293,7 @@ function ProductList() {
             )}
 
 
-            {/* chakra ui  */}
+            {/* chakra ui  for purchase success*/}
             <AlertDialog
                 isOpen={isOpen}
                 leastDestructiveRef={cancelRef}
@@ -361,7 +339,7 @@ function ProductList() {
                             <Button ref={cancelRef2} onClick={deleteOnClose}>
                                 Cancel
                             </Button>
-                            <Button  colorScheme='red' onClick={()=>{handleDelete(deleteProduct)}} ml={3}>
+                            <Button colorScheme='red' onClick={() => { handleDelete(deleteProduct) }} ml={3}>
                                 Delete
                             </Button>
                         </AlertDialogFooter>

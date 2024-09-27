@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../style/Login.css'; // Import the CSS file
 import axios from "axios"
 import { Link, useNavigate } from 'react-router-dom';
@@ -30,11 +30,8 @@ function Signpage() {
             password,
             phoneNumber
         }
-        // console.log(fromData);
         const response = await axios.post(registerurl, fromData)
-        // console.log(response.data.Message);
         if (response.data.Message == `User with email id ${email} is already register`) {
-            // alert(`${response.data.Message}`)
             toast({
                 title: `Signup Failed`,
                 description:`${response.data.Message}`,
@@ -62,6 +59,7 @@ function Signpage() {
 
 
     }
+
 
     return (
         <div className="container">

@@ -13,7 +13,7 @@ export function loginReducer(state = initialState, action) {
     switch (action.type) {
         case LOGINLOADING:
             return {
-                ...state, loading: true, error: null // Ensure error is reset
+                ...state, loading: true, error: null
             };
         case LOGINSUCCESS:
             return {
@@ -29,11 +29,11 @@ export function loginReducer(state = initialState, action) {
                 };
             case LOGOUTSUCCESS:
                 return {
-                    ...state, isLoggedIn: false, loading: false, user: null, error: null // Reset user to null
+                    ...state, isLoggedIn: false, loading: false, user: null, error: null 
                 };
             case LOGOUTFAILURE:
                 return {
-                    ...state, loading: false, error: action.payload // Keep isLoggedIn false
+                    ...state, loading: false, error: action.payload 
                 };
 
 

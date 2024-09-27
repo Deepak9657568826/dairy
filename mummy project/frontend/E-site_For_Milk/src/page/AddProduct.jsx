@@ -8,7 +8,10 @@ function AddProduct() {
     const [productImage, setProductImage] = useState('');
     const [productname, setProductname] = useState('');
     const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState('');
     const [quantityAvailable, setQuantityAvailable] = useState('');
+    const [state, setstate] = useState('');
+    const [discription, setdiscription] = useState('');
 
     const [spinner, setSpinner] = useState(false)
 
@@ -25,9 +28,14 @@ function AddProduct() {
         const newProduct = {
             productImage,
             productname,
+            discription,
             price,
+            quantity, 
+            state,
             quantityAvailable
         };
+        console.log(newProduct);
+        
 
         try {
             const response = await axios.post('https://dairy-xesa.onrender.com/product', newProduct, {
@@ -66,7 +74,7 @@ function AddProduct() {
                 })
             }
         } catch (error) {
-            // console.error('Error adding product:', error);
+            console.error('Error adding product:', error);
             setSpinner(false)
             toast({
                 title: `${error.message}`,
@@ -80,6 +88,7 @@ function AddProduct() {
     };
 
     return (
+        <div className='add-product-main'>
         <div className="form-container">
             <h2 className="form-title">Add New Product</h2>
             <form onSubmit={handleSubmit} className="product-form">
@@ -104,6 +113,16 @@ function AddProduct() {
                     />
                 </div>
                 <div className="form-group">
+                    <label>Product discription:</label>
+                    <input
+                        type="text"
+                        value={discription}
+                        onChange={(e) => setdiscription(e.target.value)}
+                        placeholder="Enter discription"
+                        required
+                    />
+                </div>
+                <div className="form-group">
                     <label>Price:</label>
                     <input
                         type="text"
@@ -113,6 +132,25 @@ function AddProduct() {
                         required
                     />
                 </div>
+                <div className="form-group">
+                    <label>Quantity:</label>
+                    <input
+                        type="text"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                        placeholder="Enter quantity"
+                        required
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label>State:</label>
+                    <select name="" id="" onChange={(e)=>{setstate(e.target.value)}}>
+                    <option value="liquide">liquide</option>
+                    <option value="solid">solid</option>
+                    </select>
+                </div>
+
                 <div className="form-group">
                     <label>Quantity Available:</label>
                     <input
@@ -135,6 +173,7 @@ function AddProduct() {
                 )}
                 </button>
             </form>
+        </div>
         </div>
     );
 }

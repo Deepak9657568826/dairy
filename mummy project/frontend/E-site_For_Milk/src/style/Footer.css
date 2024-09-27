@@ -9,9 +9,9 @@
 
 .footer-container {
     display: flex;
-    flex-direction: row; /* Change to row for horizontal alignment */
-    justify-content: space-between; /* Space out sections evenly */
-    align-items: flex-start; /* Align items at the start */
+    flex-direction: row; 
+    justify-content: space-between; 
+    align-items: flex-start; 
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -20,16 +20,16 @@
     margin: 20px;
     color: #ffffff;
     flex: 1;
-    text-align: left; /* Align text to the left */
-    /* border: 2px solid red; */
+    text-align: left; 
+   
 }
 
 .footer-section h2 {
     margin-bottom: 10px;
     font-weight: bold;
-    color: #ffffff; /* A warm orange color */
+    color: #ffffff; 
     font-size: 1.8em;
-    border-bottom: 2px solid #bc4521; /* Underline effect */
+    border-bottom: 2px solid #bc4521; 
     padding-bottom: 5px;
 }
 
@@ -52,8 +52,8 @@
 }
 
 .footer-section a:hover {
-    color: #ff5722; /* Change color on hover */
-    padding-left: 5px; /* Slide effect */
+    color: #ff5722; 
+    padding-left: 5px;
 }
 
 .social-media {
@@ -63,10 +63,10 @@
 }
 
 .social-media a {
-    margin: 0 0px; /* Increased space between icons */
-    font-size: 28px; /* Increased size for better visibility */
+    margin: 0 0px;
+    font-size: 28px; 
     color: #ffffff;
-    /* transition: color 0.3s, transform 0.3s; */
+    
     border: 1px solid rgb(0, 0, 0);
     border-radius: 50%;
     background-color: #000000;
@@ -81,12 +81,12 @@
 .footer-section h3 {
     margin-top: 20px;
     font-size: 1.2em;
-    color: #ffffff; /* Use a darker color for better visibility */
+    color: #ffffff; 
     font-weight: bold;
 }
 
 .social-media a:hover {
-    color: #373a9b; /* Change color on hover */
+    color: #373a9b; 
     background-color: rgb(193, 193, 193);
   
 }
@@ -99,7 +99,7 @@
     padding-top: 10px;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 600px) {
     .footer-container {
         padding: 0 20px;
@@ -112,6 +112,6 @@
     .footer-section {
         margin: 0 20px;
         flex: 1;
-        min-width: 200px; /* Ensure a minimum width for sections */
+        min-width: 200px; 
     }
 }

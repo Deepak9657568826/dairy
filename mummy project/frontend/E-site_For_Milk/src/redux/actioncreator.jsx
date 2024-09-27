@@ -9,7 +9,6 @@ export function loginfunction(fromData, navigate , toast ) {
         dispatch({ type: LOGINLOADING })
         try {
             const response = await axios.post(loginrurl, fromData)
-            // console.log(response.data);
 
             if (response.data.Message == `User with email id ${fromData.email} is not  register`) {
                 dispatch({ type: LOGINFAILURE, payload: response.data.Message })
@@ -17,7 +16,7 @@ export function loginfunction(fromData, navigate , toast ) {
                 // alert(`${response.data.Message}`)
                 toast({
                     title: `Login Failed`,
-                    description:`${response.data.Message}`,
+                    description:`$तुमचे लॉगिन अयशस्वी झाले आहे. कृपया पुन्हा प्रयत्न करा.`,
                     status: 'error',
                     duration: 5000,
                     isClosable: true,
@@ -30,8 +29,8 @@ export function loginfunction(fromData, navigate , toast ) {
                 dispatch({ type: LOGINFAILURE, payload: response.data.Message })
                
                 toast({
-                    title: `Login Failed`,
-                    description: `${response.data.Message}`,
+                    title: `${response.data.Message}`,
+                    description: `तुमचे लॉगिन अयशस्वी झाले आहे. कृपया पुन्हा प्रयत्न करा.`,
                     status: 'error',
                     duration: 5000,
                     isClosable: true,
@@ -39,7 +38,6 @@ export function loginfunction(fromData, navigate , toast ) {
                 });
             }
             else {
-                    // console.log(response.data);
                     
                     localStorage.setItem("token", response.data.token)
                     localStorage.setItem("user", JSON.stringify(response.data.user));
@@ -49,7 +47,7 @@ export function loginfunction(fromData, navigate , toast ) {
                 
                 toast({
                     title: `Login successfull`,
-                    description: `${response.data.Message}`,
+                    description: `तुमचे लॉगिन यशस्वी झाले आहे!`,
                     status: 'success',
                     duration: 5000,
                     isClosable: true,
@@ -79,8 +77,7 @@ const logouturl = `https://dairy-xesa.onrender.com/logout`
 const authorization = localStorage.getItem("token")
 
 export function logoutfunction(navigate , toast) {
-    // console.log("Come in logout function");
-    
+
     return async (dispatch) => {
         dispatch({ type: LOGOUTLOADING })
         try {
@@ -89,17 +86,15 @@ export function logoutfunction(navigate , toast) {
                     authorization
                 }
             })
-            // console.log(response.data);
 
             if (response.data.Message == `User logout successfull`) {
-                // console.log("enter in if bock");
                 
                 dispatch({ type: LOGOUTSUCCESS, payload: response.data })
                 localStorage.removeItem('token');
                 localStorage.removeItem('user');
                 toast({
                     title: `Logout successfully`,
-                    description: `User logout successfully`,
+                    description: `तुमचे लॉगआउट यशस्वीपणे झाले आहे!`,
                     status: 'success',
                     duration: 5000,
                     isClosable: true,
@@ -112,8 +107,8 @@ export function logoutfunction(navigate , toast) {
         } catch (error) {
             dispatch({ type: LOGOUTFAILURE, payload: error.message })
             toast({
-                title: `Logout failed`,
-                description: `${error.message}`,
+                title: `${error.message}`,
+                description: `तुमचे लॉगिन अयशस्वी झाले आहे. कृपया पुन्हा प्रयत्न करा.`,
                 status: 'error',
                 duration: 5000,
                 isClosable: true,

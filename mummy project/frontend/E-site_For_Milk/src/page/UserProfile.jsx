@@ -26,9 +26,9 @@ function UserProfile() {
                     <h2 className="profile-name">{userData.name}</h2>
                 </div>
                 <div className="profile-details">
-                    <p className="profile-email"><strong>Email:</strong> {userData.email}</p>
-                    <p className="profile-phone"><strong>Phone:</strong> {userData.phoneNumber}</p>
-                    <p className="profile-role"><strong>Role:</strong> {userData.role}</p>
+                    <p className="profile-email"><strong>ईमेल:</strong> {userData.email}</p>
+                    <p className="profile-phone"><strong>फोन:</strong> {userData.phoneNumber}</p>
+                    <p className="profile-role"><strong>भूमिका:</strong> {userData.role}</p>
                 </div>
               
             </div>

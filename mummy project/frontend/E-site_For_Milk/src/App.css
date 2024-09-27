@@ -1,3 +1,6 @@
 .app{
-  background-color: rgb(212, 217, 250);
+  /* background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); */
+  background: linear-gradient(135deg, #e0f7fa 30%, #ffffff 60%);
+
+
 }

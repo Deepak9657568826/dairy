@@ -1,6 +1,6 @@
 
 body {
-     background: linear-gradient(135deg, #f0fff4, #1185cd);
+    /* background-image: linear-gradient(to top, #5f85f1, #678def, #7095ed, #7a9dea, #84a5e7, #8ca9e6, #94aee6, #9cb2e5, #a2b4e7, #a9b6e8, #afb8ea, #b5baeb); */
      /* background-image: url(`https://png.pngtree.com/thumb_back/fh260/back_our/20190617/ourmid/pngtree-health-and-vitality-milk-dairy-products-poster-background-material-image_126084.jpg`);
      background-position: center;
      background-repeat: no-repeat;
@@ -15,16 +15,25 @@ body {
     align-items: center;
     height: 100%;
     width: 100%;
-    margin: 3% auto;
+    /* background: linear-gradient(135deg, #f0fff4, #1185cd); */
+    background-image: url("../assets/bg-image-loginpage2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; 
+
+
 }
 
 .loginBox {
-    background: #d2d2d2;
+    background: rgba(0, 0, 0, 0.473); /* Semi-transparent background */
+    /* color: white !important; */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     width: 400px;
+    margin: 10% auto;
     animation: slideIn 0.5s ease-out;
+    border: 1px solid white;
 }
 
 @media (max-width:425px) {
@@ -40,8 +49,10 @@ body {
 
 .loginBox h2 {
     margin-bottom: 20px;
-    color: #333;
+    color: #ffffff;
     padding:  0px;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .textbox {
@@ -81,11 +92,11 @@ body {
 .signup {
     margin-top: 20px;
     text-align: center;
-    color: #333;
+    color: #ffffff;
 }
 
 .signup a {
-    color: #007bff;
+    color: #ffffff;
     text-decoration: none;
 }
 

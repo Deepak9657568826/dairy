@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Navbar from './component/Navbar';
 import Allroutes from './Allroutes';
@@ -42,6 +42,8 @@ function App() {
         });
     }
   }, [dispatch]);
+ 
+  
 
   return (
     <div className='app'>
@@ -51,6 +53,8 @@ function App() {
       <Allroutes />
       <Footer/>
       </div>
+     
+
     </div>
   );
 }
