@@ -17,7 +17,6 @@ const authmiddleware = async (req, res, next) => {
 
                 }
                 else if (decoded) {
-                    console.log(decoded.user);
                     req.role = decoded.user.role
                     req.idforuser =   decoded.user._id
                     if (req.method === 'POST') {

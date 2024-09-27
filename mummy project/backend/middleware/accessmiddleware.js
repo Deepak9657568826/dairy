@@ -1,11 +1,5 @@
 const accesmiddleware = (...role) => {
-    
-    
-    
     return (req, res, next) => {
-        console.log(req.role);
-        console.log(role);
-        
         if(role.includes(req.role)){
             next()
         }

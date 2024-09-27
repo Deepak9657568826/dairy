@@ -24,6 +24,15 @@ const productSchema = new mongoose.Schema({
     phoneNumber:{
         type:Number
     },
+    discription:{
+        type:String
+    },
+    unit:{
+        type:String
+    },
+    state:{
+        type:String
+    },
     creatorname:{
         type: String
     }, 

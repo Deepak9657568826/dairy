@@ -13,9 +13,9 @@ const placeorder = async (req, res) => {
 }
 
 const getOrderList = async (req, res) => {
-
+        
     try {
-        const orderList = await orderModel.find({})
+        const orderList = await orderModel.find({}).sort({ _id: -1 })
         res.status(200).json({ Message: "OrderList", orderList });
     } catch (error) {
         res.status(200).json({ Message: error });
@@ -77,8 +77,6 @@ const deleteOrder = async (req, res) => {
 
 const prticularOrderList = async (req, res) => {
     const id = req.idforuser
-    console.log("id", id);
-
     try {
         const orderList = await orderModel.find({ creatorid: id })
         res.status(200).json({ Message: "OrderList", orderList });
