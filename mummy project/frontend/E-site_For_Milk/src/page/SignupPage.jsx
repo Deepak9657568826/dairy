@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom"
 import { Button, Spinner, useToast } from '@chakra-ui/react';
 
 function Signpage() {
+           const apiUrl = import.meta.env.VITE_BASE_URL;
 
     const [name, setname] = useState("")
     const [email, setEmail] = useState("")
@@ -19,7 +20,7 @@ function Signpage() {
 
 
     const navigate = useNavigate()
-    const registerurl = `https://dairy-xesa.onrender.com/register`
+    const registerurl = `${apiUrl}/register`
 
     async function handlesignup(e) {
         setLoading(true)

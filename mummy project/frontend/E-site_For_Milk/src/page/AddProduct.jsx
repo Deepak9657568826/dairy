@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Spinner, useToast } from '@chakra-ui/react';
 
 function AddProduct() {
+         const apiUrl = import.meta.env.VITE_BASE_URL;
+
     const [productImage, setProductImage] = useState('');
     const [productname, setProductname] = useState('');
     const [price, setPrice] = useState('');
@@ -38,7 +40,7 @@ function AddProduct() {
         
 
         try {
-            const response = await axios.post('https://dairy-xesa.onrender.com/product', newProduct, {
+            const response = await axios.post(`${apiUrl}/product`, newProduct, {
                 headers: {
                     authorization
                 }

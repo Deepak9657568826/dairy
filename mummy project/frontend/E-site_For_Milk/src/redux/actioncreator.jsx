@@ -1,8 +1,9 @@
 import axios from "axios"
 import { LOGINFAILURE, LOGINLOADING, LOGINSUCCESS, LOGOUTFAILURE, LOGOUTLOADING, LOGOUTSUCCESS } from "./actionType"
+           const apiUrl = import.meta.env.VITE_BASE_URL;
 
 //  login function 
-const loginrurl = `https://dairy-xesa.onrender.com/login`
+const loginrurl = `${apiUrl}/login`
 
 export function loginfunction(fromData, navigate , toast ) {
     return async (dispatch) => {
@@ -73,7 +74,7 @@ export function loginfunction(fromData, navigate , toast ) {
 
 // for logout 
 
-const logouturl = `https://dairy-xesa.onrender.com/logout`
+const logouturl = `${apiUrl}/logout`
 const authorization = localStorage.getItem("token")
 
 export function logoutfunction(navigate , toast) {

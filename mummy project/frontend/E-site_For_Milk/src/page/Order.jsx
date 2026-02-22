@@ -9,6 +9,8 @@ import {
 
 
 function Order() {
+       const apiUrl = import.meta.env.VITE_BASE_URL;
+
   const [orderData, setOrderData] = useState([]);
   const [loading, setLoading] = useState({});
 
@@ -19,11 +21,11 @@ function Order() {
 
 
   const toast = useToast()
-  const orderUrl = 'https://dairy-xesa.onrender.com/order';
+  const orderUrl = `${apiUrl}/order`;
 
   const authorization = localStorage.getItem('token');
 
-  const deleteUrlUrl = 'https://dairy-xesa.onrender.com/order';
+  const deleteUrlUrl = `${apiUrl}/order`;
 
   // filter data
   const [filterdata, setFilterData] = useState([]);
@@ -49,7 +51,7 @@ function Order() {
   }
 
   //  handle order status
-  const orderUrlpatch = `https://dairy-xesa.onrender.com/order/patch`
+  const orderUrlpatch = `${apiUrl}/order/patch`
   async function handleOrderStatus(e, orderId) {
     const newStatus = e;
     const payload = {

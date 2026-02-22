@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 function Footer() {
     const state = useSelector((state) => state);
-    
+
   let role;
   if (state.user) {
     role = state.user.user.role;
@@ -26,6 +26,7 @@ function Footer() {
                     <ul>
                         <li><Link to="/">मुख्यपृष्ठ</Link></li>
                       {role === "admin" &&  <li><Link to="/order">प्राप्त ऑर्डर</Link></li>}
+                      {role === "admin" &&  <li><Link to="/payments">Payment History</Link></li>}
                       {state.isLoggedIn && <li><Link to="/particularOrder">तुमची ऑर्डर</Link></li>}  
                       {state.isLoggedIn &&  <li><Link to="/Profile">युजर प्रोफाइल</Link></li>}  
                       {!state.isLoggedIn &&  <li><Link to="/signup">नोंदणी</Link></li>}  

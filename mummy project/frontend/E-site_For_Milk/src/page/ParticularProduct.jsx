@@ -18,10 +18,12 @@ import {
 import axios from 'axios';
 
 function ParticularProduct() {
-    const orderUrl = `https://dairy-xesa.onrender.com/order`;
+           const apiUrl = import.meta.env.VITE_BASE_URL;
+
+    const orderUrl = `${apiUrl}/order`;
 
 
-    const productUrl = `https://dairy-xesa.onrender.com/product`;
+    const productUrl = `${apiUrl}/product`;
 
     const [product, setProduct] = useState({});
 
@@ -93,57 +95,68 @@ function ParticularProduct() {
         }
     }
 
-    async function handlebuy(product) {
+ async function handlebuy(product) {
 
-        if (!state.isLoggedIn) {
-            // alert("Please log in first.");
-            toast({
-                title: 'Please, Login first',
-                description: "उत्पादन खरेदी करण्यासाठी तुम्हाला प्रथम लॉगिन करावे लागेल.",
-                status: 'error',
-                duration: 5000,
-                isClosable: true,
-                position: 'top-right',
-            })
-            navigate('/login');
-            return;
-        }
-        else {
-            const fromData = {
-                productImage: product.productImage,
-                productname: product.productname,
-                price: priceUni
-            }
-            try {
-                const response = await axios.post(orderUrl, fromData, {
-                    headers: {
-                        authorization,
-                    },
-                });
-                if (response.data.Message == `New order place successfuly`) {
-                    onOpen();
-                    const quantityPayload = {
-                        quantityAvailable: product.quantityAvailable - Quantity1
-                    }
-                    const updateQuantity = await axios.patch(`${productUrl}/${product._id}`, quantityPayload, {
-                        headers: {
-                            authorization
-                        }
-                    })
-                }
+  if (!state.isLoggedIn) {
+    toast({
+      title: 'Please, Login first',
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+    navigate('/login');
+    return;
+  }
 
-            } catch (error) {
-                console.error('Error fetching products:', error);
-                toast({
-                    title: 'Error',
-                    description: `${error.message}`,
-                    status: 'error',
-                    duration: 5000,
-                    isClosable: true,
-                })
-            }
-        }
-    }
+  const orderData = {
+    productImage: product.productImage,
+    productname: product.productname,
+    price: priceUni
+  };
+
+  // 1️⃣ Create Razorpay order
+  const { data } = await axios.post(`${apiUrl}/payment/create-order`, {
+    amount: priceUni
+  });
+
+  // 2️⃣ Open Razorpay
+  const options = {
+    key: import.meta.env.VITE_RAZORPAY_KEY,
+    amount: data.amount,
+    currency: data.currency,
+    name: "Sealing Dairy",
+    description: product.productname,
+    order_id: data.id,
+
+    handler: async function (response) {
+
+      // 3️⃣ Verify payment
+      const verifyRes = await axios.post(`${apiUrl}/payment/verify`, {
+        ...response,
+        orderData
+      });
+
+      if (verifyRes.data.success) {
+
+        onOpen();
+
+        const quantityPayload = {
+          quantityAvailable: product.quantityAvailable - Quantity1
+        };
+
+        await axios.patch(`${productUrl}/${product._id}`, quantityPayload, {
+          headers: { authorization }
+        });
+      }
+    },
+
+    theme: { color: "#3399cc" },
+  };
+
+  const rzp = new window.Razorpay(options);
+  rzp.open();
+}
+
 
     function handleClose() {
         onClose()

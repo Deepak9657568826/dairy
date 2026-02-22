@@ -8,6 +8,7 @@ import ParticularOrder from './page/ParticularOrder'
 import UserProfile from './page/UserProfile'
 import AddProduct from './page/AddProduct'
 import ParticularProduct from './page/ParticularProduct'
+import PaymentHistory from './page/PaymentHistory'
 
 
 function Allroutes() {
@@ -34,6 +35,7 @@ function Allroutes() {
         <Route path="/Profile" element={<UserProfile/>} />
         <Route path="/addproduct" element={<AddProduct/>} />
         <Route path="/product/:id" element={<ParticularProduct/>} />
+        <Route path="/payments" element={<PaymentHistory/>} />
       </Routes>
     </div>
   )

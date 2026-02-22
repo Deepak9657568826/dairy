@@ -4,10 +4,12 @@ import '../style/ParticularOrder.css';  // Assuming you will write CSS here
 import { Button, Spinner } from '@chakra-ui/react';
 
 function ParticularOrder() {
+         const apiUrl = import.meta.env.VITE_BASE_URL;
+
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false)
 
-  const particularuserOrder = `https://dairy-xesa.onrender.com/order/particular`;
+  const particularuserOrder = `${apiUrl}/order/particular`;
   const authorization = localStorage.getItem('token');
 
   async function getOrderList() {

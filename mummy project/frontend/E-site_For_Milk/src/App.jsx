@@ -9,8 +9,11 @@ import Footer from './component/Footer';
 import NotificationBar from './page/NotificationBar';
 
 function App() {
+             const apiUrl = import.meta.env.VITE_BASE_URL;
+
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
+  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -19,7 +22,7 @@ function App() {
     if (token && user) {
       // Send request to backend to verify token
       axios
-        .post('https://dairy-xesa.onrender.com/verifyToken', { token })
+        .post(`${apiUrl}/verifyToken`, { token })
         .then((response) => {
           if (response.data.isValid) {
             // If token is valid, dispatch LOGINSUCCESS to store user in Redux
