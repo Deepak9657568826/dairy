@@ -50,6 +50,7 @@ function Navbar() {
         
         {role === "admin" && <Link to="/addproduct" onClick={closeMenu}>उत्पादन जोडा</Link>}
         {role === "admin" && <Link to="/order" onClick={closeMenu}>प्राप्त ऑर्डर</Link>}
+        {role === "admin" && <Link to="/payments" onClick={closeMenu}>Payment History</Link>}
         
         {!state.isLoggedIn && <Link to="/signup" onClick={closeMenu}>नोंदणी</Link>}
         {!state.isLoggedIn && <Link to="/login" onClick={closeMenu}>प्रवेश</Link>}

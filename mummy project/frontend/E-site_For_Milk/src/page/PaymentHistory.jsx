@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Badge, Spinner, Stack, Skeleton } from '@chakra-ui/react';
 
-function PaymentHistory() {
+export function PaymentHistory() {
   const apiUrl = import.meta.env.VITE_BASE_URL;
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -112,4 +112,3 @@ const td = {
   borderBottom: '1px solid #eee',
 };
 
-export default PaymentHistory;

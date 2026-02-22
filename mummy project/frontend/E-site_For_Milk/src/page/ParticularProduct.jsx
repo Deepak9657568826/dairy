@@ -44,11 +44,9 @@ function ParticularProduct() {
     const state = useSelector(state => state)
     let name;
     let phoneNumber;
-    let role;
     if (state.user) {
         name = state.user.user.name
         phoneNumber = state.user.user.phoneNumber
-        role = state.user.user.role
     }
     // Get the product ID from the URL
     const { id } = useParams();
@@ -127,6 +125,11 @@ function ParticularProduct() {
     name: "Sealing Dairy",
     description: product.productname,
     order_id: data.id,
+
+    prefill: {
+      name: name || "",
+      contact: phoneNumber || "",
+    },
 
     handler: async function (response) {
 

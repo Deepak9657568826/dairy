@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import  { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Homepage from './page/Homepage'
 import Signpage from './page/SignupPage'
@@ -8,7 +8,7 @@ import ParticularOrder from './page/ParticularOrder'
 import UserProfile from './page/UserProfile'
 import AddProduct from './page/AddProduct'
 import ParticularProduct from './page/ParticularProduct'
-import PaymentHistory from './page/PaymentHistory'
+import { PaymentHistory } from './page/PaymentHistory'
 
 
 function Allroutes() {
